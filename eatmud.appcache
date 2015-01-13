@@ -1,0 +1,12 @@
+CACHE MANIFEST
+#v3
+
+# Explicitly cached 'master entries'.
+CACHE:
+favicon.ico
+index.html
+style.css
+
+# Resources that require the user to be online.
+NETWORK:
+*

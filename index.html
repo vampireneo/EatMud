@@ -1,9 +1,13 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="en" manifest="eatmud.appcache">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="apple-touch-icon" href="favicon.ico">
+    <link href="favicon.ico" rel="icon" type="image/x-icon" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
     <title>食乜好?</title>
 
     <!-- Bootstrap -->
@@ -82,6 +86,20 @@
           }
         });
       }
+
+      // Check if a new cache is available on page load.
+      window.addEventListener('load', function(e) {
+        window.applicationCache.addEventListener('updateready', function(e) {
+          if (window.applicationCache.status == window.applicationCache.UPDATEREADY) {
+            // Browser downloaded a new app cache.
+            if (confirm('A new version of this site is available. Load it?')) {
+              window.location.reload();
+            }
+          } else {
+            // Manifest didn't changed. Nothing new to server.
+          }
+        }, false);
+      }, false);
     </script>
   </body>
 </html>

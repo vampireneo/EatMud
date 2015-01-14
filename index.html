@@ -21,10 +21,14 @@
     <![endif]-->
     <style>
       #footer {
-        margin-top: 100px;
+        margin-top: 60px;
         padding-left: 10px;
         padding-top: 5px;
         padding-bottom: 5px;
+      }
+      .btn {
+        margin-top: 10px;
+        margin-bottom: 10px;
       }
     </style>
   </head>
@@ -39,8 +43,9 @@
     </div>
 
     <div class="row">
-      <button type="button" id="suggestButton" class="btn btn-primary col-xs-3 col-xs-offset-2" data-loading-text="Loading..." autocomplete="off">下個提議</button>
-      <a type="button" id="whatsappButton" class="btn btn-success col-xs-3 col-xs-offset-2" data-loading-text="Loading..." autocomplete="off"  role="button" href="whatsapp://send?text=" data-href=".">Whatsapp</a>
+      <button type="button" id="suggestButton" class="btn btn-primary col-xs-4 col-xs-offset-4 col-sm-3 col-sm-offset-1" data-loading-text="Loading..." autocomplete="off">下個提議</button>
+      <a type="button" id="whatsappButton" class="btn btn-success col-xs-4 col-xs-offset-4 col-sm-2 col-sm-offset-1" data-loading-text="Loading..." autocomplete="off" role="button" href="whatsapp://send?text=" data-href="." disabled="disabled">Whatsapp</a>
+      <a type="button" id="navButton" class="btn btn-info col-xs-4 col-xs-offset-4 col-sm-3 col-sm-offset-1" data-loading-text="Loading..." autocomplete="off" role="button" href="http://maps.google.com/maps?daddr=" role="button" disabled="disabled">Navigation</a>
     </div>
 
     <p class="bg-info" id="footer">Feel free to update the database at <a href="https://docs.google.com/spreadsheets/d/1hlSuO5Fn4bcEcFSrvT9EEQ0GFZ4lpF9tDihUCalgsIU/edit?usp=sharing">Google Drive</a><br/><br/>
@@ -55,6 +60,9 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
     <script type="text/javascript">
+      var shopData;
+      var isLoading = false;
+      
       $(document).ready(function() {
         suggest();
       });
@@ -68,25 +76,38 @@
       function suggest() {
         $("#shopName").text("Loading...");
         $("#shopAddress").text("　");
+        shopData = $.parseJSON(localStorage.getItem('shopData'));
+        if (shopData != null && shopData.length != undefined && shopData.length > 0) {
+          var idx = Math.floor(Math.random()*shopData.length);
+          var shopName = shopData[idx].gsx$shop.$t;
+          var shopAddress = shopData[idx].gsx$address.$t;
+          $("#shopName").text(shopName);
+          $("#shopAddress").text(shopAddress);
+          $("#whatsappButton").removeAttr("disabled").attr("href", "whatsapp://send?text=" + shopName + ", " + shopAddress);
+          $("#navButton").removeAttr("disabled").attr("href", "http://maps.google.com/maps?daddr=" + shopName + " " + shopAddress);
+        }
+        if (!isLoading) loadData();
+      }
+
+      function loadData() {
+        isLoading = true;
         $.ajax({
           type: "get",
-          async: false,
+          async: true,
           url: "https://spreadsheets.google.com/feeds/list/1hlSuO5Fn4bcEcFSrvT9EEQ0GFZ4lpF9tDihUCalgsIU/od6/public/values?alt=json-in-script",
           dataType: "jsonp",//指定以jsonp方式執行
           jsonp: "callback",//"mycallback"會以GET的變數名稱傳送，沒指定時，jQuery使用"callback"當變數名稱
           success: function(data){
-            document.tmp = data;
-            //console.log(data);
-            var idx = Math.floor(Math.random()*data.feed.entry.length);
-            var shopName = data.feed.entry[idx].gsx$shop.$t;
-            var shopAddress = data.feed.entry[idx].gsx$address.$t;
-            $("#shopName").text(shopName);
-            $("#shopAddress").text(shopAddress);
-            $("#whatsappButton").attr("href", "whatsapp://send?text=" + shopName + ", " + shopAddress);
-            return false;
+            localStorage.setItem('shopData', JSON.stringify(data.feed.entry));
+            if ($("#shopName").text() == "Loading...") suggest();
+            isLoading = false;
           },
           error: function(){
-            alert('fail to load data');
+            if (localStorage.getItem('shopData').length == 0) {
+              $("#shopName").text("Unable to load data.");
+              $("#shopAddress").text("　");
+            }
+            isLoading = false;
           }
         });
       }

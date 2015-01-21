@@ -30,25 +30,50 @@
     <link rel="stylesheet" href="bower_components/lumx/dist/css/lumx.css">
   </head>
   <body>
-  	<div class="container">
-	  	<div class="page-header">
-	  		<h1>食乜好?</h1>
+    <div class="toolbar bgc-blue-500">
+      <div class="toolbar__left mr"></div>
+      <span class="toolbar__label fs-title tc-white-1">食乜好?</span>
+	  	<div class="toolbar__right"></div>
+    </div>
 
-        <div class="well">
-          <h1 id="shopName" class="text-center">Loading...</h1>
-          <p id="shopAddress" class="text-center"></p>
+    <div class="grid m">
+      <div class="card grid__col12">
+        <div class="card__top">
+          <strong class="card-title" id="shopName">Loading...</strong>
+          <span class="card-subtitle"></span>
         </div>
-
-        <div class="row">
-          <button type="button" id="suggestButton" class="btn btn-primary col-xs-4 col-xs-offset-4 col-sm-3 col-sm-offset-1" data-loading-text="Loading..." autocomplete="off">下個提議</button>
-          <a type="button" id="whatsappButton" class="btn btn-success col-xs-4 col-xs-offset-4 col-sm-2 col-sm-offset-1" data-loading-text="Loading..." autocomplete="off" role="button" href="whatsapp://send?text=" data-href="." disabled="disabled">Whatsapp</a>
-          <a type="button" id="navButton" class="btn btn-info col-xs-4 col-xs-offset-4 col-sm-3 col-sm-offset-1" data-loading-text="Loading..." autocomplete="off" role="button" href="http://maps.google.com/maps?daddr=" role="button" disabled="disabled">Navigation</a>
+        <div class="card__content">
+          <div class="paragraph">
+            <p id="shopAddress"></p>
+          </div>
         </div>
-
-        <p class="bg-info" id="footer">Feel free to update the database at <a href="https://docs.google.com/spreadsheets/d/1hlSuO5Fn4bcEcFSrvT9EEQ0GFZ4lpF9tDihUCalgsIU/edit?usp=sharing">Google Drive</a><br/><br/>
-          You can add this page in homepage of your mobile as a web app.</p>
+        <div class="card__actions m--">
+          <button id="suggestButton" class="btn btn--l btn--blue btn--raised" lx-ripple><i class="mdi mdi--repeat"></i> 下個提議</button>
+          <button id="whatsappButton" class="btn btn--l btn--green btn--raised" lx-ripple><i class="mdi mdi--share"></i> Whatsapp</button>
+          <button id="navButton" class="btn btn--l btn--light-green btn--raised" lx-ripple><i class="mdi mdi--map"></i> Navigation</button>
+        </div>
       </div>
-		</div>
+      <div class="card grid__col12">
+        <div class="card__top">
+          <strong class="card-title"></strong>
+          <span class="card-subtitle"></span>
+        </div>
+        <div class="card__content">
+          <div class="paragraph">
+            <p>Feel free to update the database at <a href="https://docs.google.com/spreadsheets/d/1hlSuO5Fn4bcEcFSrvT9EEQ0GFZ4lpF9tDihUCalgsIU/edit?usp=sharing">Google Drive</a><br/><br/>
+          You can add this page in homepage of your mobile as a web app.</p>
+          </div>
+        </div>
+        <div class="card__actions m--">
+        </div>
+      </div>
+    </div>
+
+        <!--div class="row">
+          <button type="button"  class="btn btn-primary col-xs-4 col-xs-offset-4 col-sm-3 col-sm-offset-1" data-loading-text="Loading..." autocomplete="off">下個提議</button>
+          <a type="button" class="btn btn-success col-xs-4 col-xs-offset-4 col-sm-2 col-sm-offset-1" data-loading-text="Loading..." autocomplete="off" role="button" href="whatsapp://send?text=" data-href="." disabled="disabled">Whatsapp</a>
+          <a type="button" class="btn btn-info col-xs-4 col-xs-offset-4 col-sm-3 col-sm-offset-1" data-loading-text="Loading..." autocomplete="off" role="button" href="http://maps.google.com/maps?daddr=" role="button" disabled="disabled">Navigation</a>
+        </div-->
 
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/velocity/velocity.js"></script>

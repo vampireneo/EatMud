@@ -41,18 +41,18 @@
     <div class="grid m">
       <div class="card grid__col12">
         <div class="card__top">
-          <strong class="card-title" id="shopName">Loading...</strong>
-          <span class="card-subtitle"></span>
+          <div class="text--center fs-display-2" id="shopName">Loading...</div>
+          <div class="text--center fs-title"></div>
         </div>
         <div class="card__content">
-          <div class="paragraph">
+          <div class="paragraph text--center">
             <p id="shopAddress"></p>
           </div>
         </div>
-        <div class="card__actions m--">
-          <button id="suggestButton" class="btn btn--l btn--blue btn--raised" lx-ripple><i class="mdi mdi--repeat"></i> 下個提議</button>
-          <button id="whatsappButton" class="btn btn--l btn--green btn--raised" lx-ripple><i class="mdi mdi--share"></i> Whatsapp</button>
-          <button id="navButton" class="btn btn--l btn--light-green btn--raised" lx-ripple><i class="mdi mdi--map"></i> Navigation</button>
+        <div class="card__actions m-- text--center">
+          <button id="suggestButton" class="btn btn--xl btn--blue btn--raised mb pl pr ml mr" lx-ripple><i class="mdi mdi--repeat"></i> 下個提議 </button>
+          <button id="whatsappButton" class="btn btn--l btn--green btn--raised mb pl pr ml mr" lx-ripple><i class="mdi mdi--share"></i> Whatsapp </button>
+          <button id="navButton" class="btn btn--l btn--light-green btn--raised mb pl pr ml mr" lx-ripple><i class="mdi mdi--map"></i> Navigation </button>
         </div>
       </div>
       <div class="card grid__col12">
@@ -98,6 +98,10 @@
         suggest();
       });
 
+      $("#navButton, #whatsappButton").on('click', function() {
+        window.location.href = $(this).data("href");
+      });
+
       function suggest() {
         $("#shopName").text("Loading...");
         $("#shopAddress").text("　");
@@ -108,8 +112,8 @@
           var shopAddress = shopData[idx].gsx$address.$t;
           $("#shopName").text(shopName);
           $("#shopAddress").text(shopAddress);
-          $("#whatsappButton").removeAttr("disabled").attr("href", "whatsapp://send?text=" + shopName + ", " + shopAddress);
-          $("#navButton").removeAttr("disabled").attr("href", "http://maps.google.com/maps?daddr=" + shopName + " " + shopAddress);
+          $("#whatsappButton").data("href", "whatsapp://send?text=" + shopName + ", " + shopAddress);
+          $("#navButton").data("href", "http://maps.google.com/maps?daddr=" + shopName + " " + shopAddress);
         }
         if (!isLoading) loadData();
       }

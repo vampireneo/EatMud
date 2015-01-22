@@ -18,6 +18,13 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <link rel="stylesheet" href="bower_components/lumx/dist/css/lumx.css">
+    <style type="text/css">
+    #shopTop {
+      background-repeat: no-repeat;
+      background-size: auto 100%;
+      background-position: center; 
+    }
+    </style>
   </head>
   <body>
     <div class="toolbar bgc-blue-500">
@@ -29,6 +36,7 @@
     <div class="text--center">
       <div class="card m">
         <div class="card__top">
+          <!--img src="" id="shopPhoto" class="text- -center" style=" height: 200px;display:block;"-->
           <div class="text--center fs-display-2 mt-" id="shopName">Loading...</div>
           <div class="text--center fs-title"></div>
         </div>
@@ -90,10 +98,15 @@
         shopData = $.parseJSON(localStorage.getItem('shopData'));
         if (shopData != null && shopData.length != undefined && shopData.length > 0) {
           var idx = Math.floor(Math.random()*shopData.length);
+          console.log(shopData[idx]);
           var shopName = shopData[idx].gsx$shop.$t;
           var shopAddress = shopData[idx].gsx$address.$t;
+          var shopPhoto = shopData[idx].gsx$photo ? shopData[idx].gsx$photo.$t : "";
           $("#shopName").text(shopName);
           $("#shopAddress").text(shopAddress);
+          //$("#shopPhoto").attr("src", shopPhoto);
+          //$("#shopTop").css("background-image", "url(" + shopPhoto + ")");
+          
           $("#whatsappButton").attr("href", "whatsapp://send?text=" + shopName + ", " + shopAddress);
           $("#navButton").attr("href", "http://maps.google.com/maps?daddr=" + shopName + " " + shopAddress);
         }

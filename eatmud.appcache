@@ -1,9 +1,11 @@
 CACHE MANIFEST
-#v6
+#v7
 
 # Explicitly cached 'master entries'.
 CACHE:
 favicon.ico
+icon_192x192.png
+icon_512x512.png
 index.html
 style.css
 css/bootstrap-theme.css

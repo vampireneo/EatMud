@@ -1,0 +1,23 @@
+{
+  "name": "Eat Mud",
+  "version": "0.0.1",
+  "authors": [
+    "Neo <neo.choi@gmail.com>"
+  ],
+  "main": "index.html",
+  "keywords": [
+    "eat"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "lumx": "~0.2.49"
+  }
+}

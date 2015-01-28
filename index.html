@@ -17,19 +17,14 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <!--style>
-      #footer {
-        margin-top: 60px;
-        padding-left: 10px;
-        padding-top: 5px;
-        padding-bottom: 5px;
-      }
-      .btn {
-        margin-top: 10px;
-        margin-bottom: 10px;
-      }
-    </style-->
     <link rel="stylesheet" href="bower_components/lumx/dist/css/lumx.css">
+    <style type="text/css">
+    #shopTop {
+      background-repeat: no-repeat;
+      background-size: auto 100%;
+      background-position: center; 
+    }
+    </style>
   </head>
   <body>
     <div class="toolbar bgc-blue-500">
@@ -38,10 +33,11 @@
 	  	<div class="toolbar__right"></div>
     </div>
 
-    <div class="grid m">
-      <div class="card grid__col12">
+    <div class="text--center">
+      <div class="card m">
         <div class="card__top">
-          <div class="text--center fs-display-2" id="shopName">Loading...</div>
+          <!--img src="" id="shopPhoto" class="text- -center" style=" height: 200px;display:block;"-->
+          <div class="text--center fs-display-2 mt-" id="shopName">Loading...</div>
           <div class="text--center fs-title"></div>
         </div>
         <div class="card__content">
@@ -51,11 +47,11 @@
         </div>
         <div class="card__actions m-- text--center">
           <button id="suggestButton" class="btn btn--xl btn--blue btn--raised mb pl pr ml mr" lx-ripple><i class="mdi mdi--repeat"></i> 下個提議 </button>
-          <button id="whatsappButton" class="btn btn--l btn--green btn--raised mb pl pr ml mr" lx-ripple><i class="mdi mdi--share"></i> Whatsapp </button>
-          <button id="navButton" class="btn btn--l btn--light-green btn--raised mb pl pr ml mr" lx-ripple><i class="mdi mdi--map"></i> Navigation </button>
+          <a id="whatsappButton" class="btn btn--l btn--green btn--raised mb pl pr ml mr" lx-ripple href="whatsapp://send?text="><i class="mdi mdi--share"></i> Whatsapp </a>
+          <a id="navButton" class="btn btn--l btn--light-green btn--raised mb pl pr ml mr" lx-ripple href="http://maps.google.com/maps?daddr="><i class="mdi mdi--map"></i> Navigation </a>
         </div>
       </div>
-      <div class="card grid__col12">
+      <div class="card m">
         <div class="card__top">
           <strong class="card-title"></strong>
           <span class="card-subtitle"></span>
@@ -71,26 +67,28 @@
       </div>
     </div>
 
-        <!--div class="row">
-          <button type="button"  class="btn btn-primary col-xs-4 col-xs-offset-4 col-sm-3 col-sm-offset-1" data-loading-text="Loading..." autocomplete="off">下個提議</button>
-          <a type="button" class="btn btn-success col-xs-4 col-xs-offset-4 col-sm-2 col-sm-offset-1" data-loading-text="Loading..." autocomplete="off" role="button" href="whatsapp://send?text=" data-href="." disabled="disabled">Whatsapp</a>
-          <a type="button" class="btn btn-info col-xs-4 col-xs-offset-4 col-sm-3 col-sm-offset-1" data-loading-text="Loading..." autocomplete="off" role="button" href="http://maps.google.com/maps?daddr=" role="button" disabled="disabled">Navigation</a>
-        </div-->
-
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/velocity/velocity.js"></script>
     <script src="bower_components/moment/min/moment-with-locales.min.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/lumx/dist/js/lumx.js"></script>
+    <script src="bower_components/shake.js/shake.js"></script>
 
     <script type="text/javascript">
       angular.module('eatMudApp', ['lumx']);
+
+      var myShakeEvent = new Shake({
+        threshold: 15, // optional shake strength threshold
+        timeout: 1000 // optional, determines the frequency of event generation
+      });
 
       var shopData;
       var isLoading = false;
       
       $(document).ready(function() {
         suggest();
+        myShakeEvent.start();
+        window.addEventListener('shake', suggest, false);
       });
 
       $("#suggestButton").on('click', function () {
@@ -98,9 +96,9 @@
         suggest();
       });
 
-      $("#navButton, #whatsappButton").on('click', function() {
+      /*$("#navButton, #whatsappButton").on('click', function() {
         window.location.href = $(this).data("href");
-      });
+      });*/
 
       function suggest() {
         $("#shopName").text("Loading...");
@@ -108,12 +106,17 @@
         shopData = $.parseJSON(localStorage.getItem('shopData'));
         if (shopData != null && shopData.length != undefined && shopData.length > 0) {
           var idx = Math.floor(Math.random()*shopData.length);
+          console.log(shopData[idx]);
           var shopName = shopData[idx].gsx$shop.$t;
           var shopAddress = shopData[idx].gsx$address.$t;
+          var shopPhoto = shopData[idx].gsx$photo ? shopData[idx].gsx$photo.$t : "";
           $("#shopName").text(shopName);
           $("#shopAddress").text(shopAddress);
-          $("#whatsappButton").data("href", "whatsapp://send?text=" + shopName + ", " + shopAddress);
-          $("#navButton").data("href", "http://maps.google.com/maps?daddr=" + shopName + " " + shopAddress);
+          //$("#shopPhoto").attr("src", shopPhoto);
+          //$("#shopTop").css("background-image", "url(" + shopPhoto + ")");
+          
+          $("#whatsappButton").attr("href", "whatsapp://send?text=" + shopName + ", " + shopAddress);
+          $("#navButton").attr("href", "http://maps.google.com/maps?daddr=" + shopName + " " + shopAddress);
         }
         if (!isLoading) loadData();
       }

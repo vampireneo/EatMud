@@ -72,15 +72,23 @@
     <script src="bower_components/moment/min/moment-with-locales.min.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/lumx/dist/js/lumx.js"></script>
+    <script src="bower_components/shake.js/shake.js"></script>
 
     <script type="text/javascript">
       angular.module('eatMudApp', ['lumx']);
+
+      var myShakeEvent = new Shake({
+        threshold: 15, // optional shake strength threshold
+        timeout: 1000 // optional, determines the frequency of event generation
+      });
 
       var shopData;
       var isLoading = false;
       
       $(document).ready(function() {
         suggest();
+        myShakeEvent.start();
+        window.addEventListener('shake', suggest, false);
       });
 
       $("#suggestButton").on('click', function () {

@@ -1,6 +1,6 @@
 {
   "name": "Eat Mud",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "authors": [
     "Neo <neo.choi@gmail.com>"
   ],
@@ -18,6 +18,8 @@
     "tests"
   ],
   "dependencies": {
-    "lumx": "~0.2.49"
+    "shake.js": "~1.2.1",
+    "lumx": "~0.2.49",
+    "uri.js": "~1.14.1"
   }
 }

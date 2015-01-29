@@ -33,19 +33,19 @@
 	  	<div class="toolbar__right"></div>
     </div>
 
-    <div class="text--center">
+    <div class="text-center">
       <div class="card m">
         <div class="card__top">
           <!--img src="" id="shopPhoto" class="text- -center" style=" height: 200px;display:block;"-->
-          <div class="text--center fs-display-2 mt-" id="shopName">Loading...</div>
-          <div class="text--center fs-title"></div>
+          <div class="text-center fs-display-2 mt-" id="shopName">Loading...</div>
+          <div class="text-center fs-title"></div>
         </div>
         <div class="card__content">
-          <div class="paragraph text--center">
+          <div class="paragraph text-center">
             <p id="shopAddress"></p>
           </div>
         </div>
-        <div class="card__actions m-- text--center">
+        <div class="card__actions m-- text-center">
           <button id="suggestButton" class="btn btn--xl btn--blue btn--raised mb pl pr ml mr" lx-ripple><i class="mdi mdi--repeat"></i> 下個提議 </button>
           <a id="whatsappButton" class="btn btn--l btn--green btn--raised mb pl pr ml mr" lx-ripple href="whatsapp://send?text="><i class="mdi mdi--share"></i> Whatsapp </a>
           <a id="navButton" class="btn btn--l btn--light-green btn--raised mb pl pr ml mr" lx-ripple href="http://maps.google.com/maps?daddr="><i class="mdi mdi--map"></i> Navigation </a>
@@ -57,12 +57,10 @@
           <span class="card-subtitle"></span>
         </div>
         <div class="card__content">
-          <div class="paragraph">
-            <p>Feel free to update the database at <a href="https://docs.google.com/spreadsheets/d/1hlSuO5Fn4bcEcFSrvT9EEQ0GFZ4lpF9tDihUCalgsIU/edit?usp=sharing">Google Drive</a><br/><br/>
+          <div class="paragraph m p">
+            <p>The data is povided by <a id="sheetLink" href="https://docs.google.com/spreadsheets/d/1hlSuO5Fn4bcEcFSrvT9EEQ0GFZ4lpF9tDihUCalgsIU/edit?usp=sharing">this Google Sheet</a>.<br/>
           You can add this page in homepage of your mobile as a web app.</p>
           </div>
-        </div>
-        <div class="card__actions m--">
         </div>
       </div>
     </div>
@@ -73,9 +71,13 @@
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/lumx/dist/js/lumx.js"></script>
     <script src="bower_components/shake.js/shake.js"></script>
+    <script src="bower_components/uri.js/src/URI.min.js"></script>
 
     <script type="text/javascript">
       angular.module('eatMudApp', ['lumx']);
+
+      var uri = new URI();
+      var sheetId = uri.fragment() || "1hlSuO5Fn4bcEcFSrvT9EEQ0GFZ4lpF9tDihUCalgsIU";
 
       var myShakeEvent = new Shake({
         threshold: 15, // optional shake strength threshold
@@ -86,6 +88,7 @@
       var isLoading = false;
       
       $(document).ready(function() {
+        $("#sheetLink").attr("href", "https://docs.google.com/spreadsheets/d/" + sheetId + "/edit?usp=sharing");
         suggest();
         myShakeEvent.start();
         window.addEventListener('shake', suggest, false);
@@ -106,7 +109,7 @@
         shopData = $.parseJSON(localStorage.getItem('shopData'));
         if (shopData != null && shopData.length != undefined && shopData.length > 0) {
           var idx = Math.floor(Math.random()*shopData.length);
-          console.log(shopData[idx]);
+          //console.log(shopData[idx]);
           var shopName = shopData[idx].gsx$shop.$t;
           var shopAddress = shopData[idx].gsx$address.$t;
           var shopPhoto = shopData[idx].gsx$photo ? shopData[idx].gsx$photo.$t : "";
@@ -126,7 +129,7 @@
         $.ajax({
           type: "get",
           async: true,
-          url: "https://spreadsheets.google.com/feeds/list/1hlSuO5Fn4bcEcFSrvT9EEQ0GFZ4lpF9tDihUCalgsIU/od6/public/values?alt=json-in-script",
+          url: "https://spreadsheets.google.com/feeds/list/" + sheetId + "/od6/public/values?alt=json-in-script",
           dataType: "jsonp",//指定以jsonp方式執行
           jsonp: "callback",//"mycallback"會以GET的變數名稱傳送，沒指定時，jQuery使用"callback"當變數名稱
           success: function(data){

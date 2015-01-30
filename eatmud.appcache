@@ -1,5 +1,5 @@
 CACHE MANIFEST
-#v7
+#v7.1
 
 # Explicitly cached 'master entries'.
 CACHE:
@@ -24,5 +24,5 @@ js/jquery-1.11.2.min.js
 js/npm.js
 
 # Resources that require the user to be online.
-#NETWORK:
-#*
+NETWORK:
+*

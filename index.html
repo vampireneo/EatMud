@@ -35,21 +35,20 @@
 
     <div class="text-center">
       <div class="card m">
-        <div class="card__top">
-          <!--img src="" id="shopPhoto" class="text- -center" style=" height: 200px;display:block;"-->
-          <div class="text-center fs-display-2 mt-" id="shopName">Loading...</div>
-          <div class="text-center fs-title"></div>
+        <div class="card__img card__img--top">
+          <img id="shopPhoto" src="">
+          <h1 class="tc-white-1" id="shopName">Loading...</h1>
         </div>
-        <div class="card__content">
-          <div class="paragraph text-center">
+        <div class="p+">
+          <button id="suggestButton" class="btn btn--xl btn--blue btn--raised mb pl pr ml mr" lx-ripple><i class="mdi mdi--repeat"></i> 下個提議 </button><br/>
+          <a id="whatsappButton" class="btn btn--l btn--green btn--raised mb pl pr ml mr" lx-ripple href="whatsapp://send?text="><i class="mdi mdi--share"></i> Whatsapp </a><br/>
+          <a id="navButton" class="btn btn--l btn--light-green btn--raised mb pl pr ml+ mr+" lx-ripple href="http://maps.google.com/maps?daddr="><i class="mdi mdi--map"></i> Navigation </a>
+          <!--div class="paragraph text-center">
             <p id="shopAddress"></p>
-          </div>
+          </div-->
         </div>
-        <div class="card__actions m-- text-center">
-          <button id="suggestButton" class="btn btn--xl btn--blue btn--raised mb pl pr ml mr" lx-ripple><i class="mdi mdi--repeat"></i> 下個提議 </button>
-          <a id="whatsappButton" class="btn btn--l btn--green btn--raised mb pl pr ml mr" lx-ripple href="whatsapp://send?text="><i class="mdi mdi--share"></i> Whatsapp </a>
-          <a id="navButton" class="btn btn--l btn--light-green btn--raised mb pl pr ml mr" lx-ripple href="http://maps.google.com/maps?daddr="><i class="mdi mdi--map"></i> Navigation </a>
-        </div>
+        <!--div class="card__actions text-center">
+        </div-->
       </div>
       <div class="card m">
         <div class="card__top">
@@ -115,8 +114,7 @@
           var shopPhoto = shopData[idx].gsx$photo ? shopData[idx].gsx$photo.$t : "";
           $("#shopName").text(shopName);
           $("#shopAddress").text(shopAddress);
-          //$("#shopPhoto").attr("src", shopPhoto);
-          //$("#shopTop").css("background-image", "url(" + shopPhoto + ")");
+          $("#shopPhoto").attr("src", shopPhoto);
           
           $("#whatsappButton").attr("href", "whatsapp://send?text=" + shopName + ", " + shopAddress);
           $("#navButton").attr("href", "http://maps.google.com/maps?daddr=" + shopName + " " + shopAddress);
@@ -152,9 +150,9 @@
         window.applicationCache.addEventListener('updateready', function(e) {
           if (window.applicationCache.status == window.applicationCache.UPDATEREADY) {
             // Browser downloaded a new app cache.
-            if (confirm('A new version of this site is available. Load it?')) {
+            //if (confirm('A new version of this site is available. Load it?')) {
               window.location.reload();
-            }
+            //}
           } else {
             // Manifest didn't changed. Nothing new to server.
           }

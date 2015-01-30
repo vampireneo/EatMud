@@ -138,7 +138,7 @@
             isLoading = false;
           },
           error: function(){
-            if (localStorage.getItem('shopData').length == 0) {
+            if (localStorage.getItem('shopData') == null || localStorage.getItem('shopData').length == 0) {
               $("#shopName").text("Unable to load data.");
               $("#shopAddress").text("　");
             }

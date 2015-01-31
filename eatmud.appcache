@@ -1,5 +1,5 @@
 CACHE MANIFEST
-#v0.0.5
+#v0.0.6
 
 # Explicitly cached 'master entries'.
 CACHE:
@@ -7,6 +7,7 @@ favicon.ico
 icon_192x192.png
 icon_512x512.png
 index.html
+blank.jpg
 bower_components/lumx/dist/css/lumx.css
 bower_components/jquery/dist/jquery.js
 bower_components/velocity/velocity.js

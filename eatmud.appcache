@@ -1,5 +1,5 @@
 CACHE MANIFEST
-#v0.0.6
+#v0.0.7
 
 # Explicitly cached 'master entries'.
 CACHE:
@@ -8,12 +8,13 @@ icon_192x192.png
 icon_512x512.png
 index.html
 blank.jpg
-bower_components/lumx/dist/css/lumx.css
+bower_components/lumx/dist/lumx.css
+bower_components/mdi/materialdesignicons.css
 bower_components/jquery/dist/jquery.js
 bower_components/velocity/velocity.js
 bower_components/moment/min/moment-with-locales.min.js
 bower_components/angular/angular.js
-bower_components/lumx/dist/js/lumx.js
+bower_components/lumx/dist/lumx.js
 bower_components/shake.js/shake.js
 bower_components/uri.js/src/URI.min.js
 

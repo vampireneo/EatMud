@@ -10,7 +10,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
     <meta name="theme-color" content="#25b7d3">
-    <title>食乜好?</title>
+    <title>食乜好呢?</title>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -82,7 +82,7 @@
 
       var shopData;
       var isLoading = false;
-      
+
       $(document).ready(function() {
         $("#sheetLink").attr("href", "https://docs.google.com/spreadsheets/d/" + sheetId + "/edit?usp=sharing");
         suggest();
@@ -112,7 +112,7 @@
           $("#shopName").text(shopName);
           $("#shopAddress").text(shopAddress);
           $("#shopPhoto").attr("src", shopPhoto);
-          
+
           $("#whatsappButton").attr("href", "whatsapp://send?text=" + shopName + ", " + shopAddress);
           $("#navButton").attr("href", "http://maps.google.com/maps?daddr=" + shopName + " " + shopAddress);
         }
